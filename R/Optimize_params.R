@@ -335,7 +335,14 @@ optimizxcms.doe.peakpicking <- function(object = NULL, params = params,
     mSet_OPT[["response"]]<-tmp_matrix;
     
     MessageOutput(paste0("Round ",iterator," Finished !"), "\n", NULL)
-    
+
+	printf("\n---\nDesign:\n")
+    print(params)
+    printf("---\n")
+	printf("\n---\nResponse:\n")
+    print(tmp_matrix)
+    printf("---\n")
+	
     mSet_OPT <-
       tryCatch(Statistic_doe(
         object = object,
