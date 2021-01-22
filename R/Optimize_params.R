@@ -935,19 +935,11 @@ calculateSet_doe <- function(object, object_mslevel, Set_parameters, task = 1,
 calculatePPKs<-function(object, object_mslevel,param,
                         BPPARAM = bpparam(),msLevel = 1){
   
-  if (param$Peak_method == "centWave" | param$Peak_method == "matchedFilter") {
-
     mSet <- try(PeakPicking_core(object, object_mslevel,
                                  param = param,
                                  msLevel = 1),
                 silent = TRUE)
 
-    
-  } else {
-    
-    stop("Other peak picking method cannot be supported for now !")
-    
-  }
 }
 
 #' @title Alignment Method
