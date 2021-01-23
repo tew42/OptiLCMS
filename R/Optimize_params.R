@@ -100,104 +100,104 @@ PerformParamsOptimization <- function(mSet, param= NULL, method="DoE", ncore=4, 
     }
     
     ## Optimize the noise and prefilter indexes with AutoTuner
-    if (param[["Peak_method"]] == "centWave"){
-      MessageOutput("Evaluating Noise level...", "\n", NULL)
-
-      p2 <- tryCatch(
-        Noise_evaluate(raw_data),
-        error = function(e) {
-          e
-        }
-      )
-      
-      if (class(p2)[1] == "simpleError") {
-        
-          print_mes_tmp <-
-            paste0("\n",
-                   "<font color=\"red\">",
-                   "ERROR:",
-                   p2$message,
-                   "</font>",
-                   "\n")
-          
-          print_mes_tmp2 <-
-            paste0(
-              "<font color=\"orange\">",
-              "Don't worry: Will use default noise parameters instead!",
-              "</font>"
-            )
-          
-          print_mes <- paste0(print_mes_tmp, print_mes_tmp2)
-          MessageOutput(print_mes, "\n", NULL)
-          
-      } else {
-        MessageOutput("Done!", "\n", NULL)
-      }
-      
-      
-      if(class(p2)[1]=="simpleError"){
-        
-        param[["ppm"]]<-15;
-        param[["noise"]]<-100;
-        param[["prefilter"]]<-3;
-        param[["value_of_prefilter"]]<-10;
-        
-      } else {
-        
-        if(!is.nan(p2$ppm) & !is.finite(p2$ppm) & !is.infinite(p2$ppm)){
-          p2[["ppm"]]<-round(p2$ppm,2);
-        } else {
-          p2[["ppm"]] <- 15.00;
-        }
-        if(!is.nan(p2$noise) & !is.finite(p2$noise) & !is.infinite(p2$noise)){
-          p2[["noise"]]<-round(p2$noise,2);
-        } else {
-          p2[["noise"]] <- 100;
-        }
-        if(!is.nan(p2$prefilter) & !is.finite(p2$prefilter) & !is.infinite(p2$prefilter)){
-          p2[["prefilter"]]<-round(p2$prefilter,2);
-        } else {
-          p2[["prefilter"]] <- 3;
-        }
-        if(!is.nan(p2$value_of_prefilter) & !is.finite(p2$value_of_prefilter) & !is.infinite(p2$value_of_prefilter)){
-          p2[["value_of_prefilter"]]<-round(p2$value_of_prefilter,2);
-        } else {
-          p2[["value_of_prefilter"]] <- 10;
-        }
-        
-        param[["ppm"]]<-round(p2$ppm,2);
-        param[["noise"]]<-round(p2$noise,2);
-        param[["prefilter"]]<-round(p2$prefilter,2);
-        param[["value_of_prefilter"]]<-round(p2$value_of_prefilter,2);
-        
-        if(round(p2$ppm,2) < 1.5 | round(p2$ppm,2) > 100){
-          param[["ppm"]] <- 15.00; # Estimation failure, use the default instead !
-        } else {
-          param[["ppm"]] <- round(p2$ppm,2);
-        }
-        
-        if(round(p2$prefilter,2) < 2){
-          param[["prefilter"]] <- 3; # Estimation failure, use the default instead !
-        } else {
-          param[["prefilter"]] <- round(p2$prefilter,2);
-        }
-        
-        if(round(p2$value_of_prefilter,2) < 10){
-          param[["value_of_prefilter"]] <- 10; # Estimation failure, use the default instead !
-        } else {
-          param[["value_of_prefilter"]] <- round(p2$value_of_prefilter,2);
-        }
-        
-        if(round(p2$noise,2) < 0){
-          param[["noise"]] <- 100; # Estimation failure, use the default instead !
-        } else {
-          param[["noise"]] <- round(p2$noise,2);
-        }
-        
-      }
-      
-      MessageOutput(NULL, NULL, 5.00);
-    }
+    #if (param[["Peak_method"]] == "centWave"){
+    #  MessageOutput("Evaluating Noise level...", "\n", NULL)
+	#
+    #  p2 <- tryCatch(
+    #    Noise_evaluate(raw_data),
+    #    error = function(e) {
+    #      e
+    #    }
+    #  )
+    #  
+    #  if (class(p2)[1] == "simpleError") {
+    #    
+    #      print_mes_tmp <-
+    #        paste0("\n",
+    #               "<font color=\"red\">",
+    #               "ERROR:",
+    #               p2$message,
+    #               "</font>",
+    #               "\n")
+    #      
+    #      print_mes_tmp2 <-
+    #        paste0(
+    #          "<font color=\"orange\">",
+    #          "Don't worry: Will use default noise parameters instead!",
+    #          "</font>"
+    #        )
+    #      
+    #      print_mes <- paste0(print_mes_tmp, print_mes_tmp2)
+    #      MessageOutput(print_mes, "\n", NULL)
+    #      
+    #  } else {
+    #    MessageOutput("Done!", "\n", NULL)
+    #  }
+    #  
+    #  
+    #  if(class(p2)[1]=="simpleError"){
+    #    
+    #    param[["ppm"]]<-15;
+    #    param[["noise"]]<-100;
+    #    param[["prefilter"]]<-3;
+    #    param[["value_of_prefilter"]]<-10;
+    #    
+    #  } else {
+    #    
+    #    if(!is.nan(p2$ppm) & !is.finite(p2$ppm) & !is.infinite(p2$ppm)){
+    #      p2[["ppm"]]<-round(p2$ppm,2);
+    #    } else {
+    #      p2[["ppm"]] <- 15.00;
+    #    }
+    #    if(!is.nan(p2$noise) & !is.finite(p2$noise) & !is.infinite(p2$noise)){
+    #      p2[["noise"]]<-round(p2$noise,2);
+    #    } else {
+    #      p2[["noise"]] <- 100;
+    #    }
+    #    if(!is.nan(p2$prefilter) & !is.finite(p2$prefilter) & !is.infinite(p2$prefilter)){
+    #      p2[["prefilter"]]<-round(p2$prefilter,2);
+    #    } else {
+    #      p2[["prefilter"]] <- 3;
+    #    }
+    #    if(!is.nan(p2$value_of_prefilter) & !is.finite(p2$value_of_prefilter) & !is.infinite(p2$value_of_prefilter)){
+    #      p2[["value_of_prefilter"]]<-round(p2$value_of_prefilter,2);
+    #    } else {
+    #      p2[["value_of_prefilter"]] <- 10;
+    #    }
+    #    
+    #    param[["ppm"]]<-round(p2$ppm,2);
+    #    param[["noise"]]<-round(p2$noise,2);
+    #    param[["prefilter"]]<-round(p2$prefilter,2);
+    #    param[["value_of_prefilter"]]<-round(p2$value_of_prefilter,2);
+    #    
+    #    if(round(p2$ppm,2) < 1.5 | round(p2$ppm,2) > 100){
+    #      param[["ppm"]] <- 15.00; # Estimation failure, use the default instead !
+    #    } else {
+    #      param[["ppm"]] <- round(p2$ppm,2);
+    #    }
+    #    
+    #    if(round(p2$prefilter,2) < 2){
+    #      param[["prefilter"]] <- 3; # Estimation failure, use the default instead !
+    #    } else {
+    #      param[["prefilter"]] <- round(p2$prefilter,2);
+    #    }
+    #    
+    #    if(round(p2$value_of_prefilter,2) < 10){
+    #      param[["value_of_prefilter"]] <- 10; # Estimation failure, use the default instead !
+    #    } else {
+    #      param[["value_of_prefilter"]] <- round(p2$value_of_prefilter,2);
+    #    }
+    #    
+    #    if(round(p2$noise,2) < 0){
+    #      param[["noise"]] <- 100; # Estimation failure, use the default instead !
+    #    } else {
+    #      param[["noise"]] <- round(p2$noise,2);
+    #    }
+    #    
+    #  }
+    #  
+    #  MessageOutput(NULL, NULL, 5.00);
+    #}
     
     if (method=="DoE"){
       p1 <- optimize.xcms.doe(raw_data,param=param,ncore=ncore); 
@@ -275,53 +275,53 @@ optimize.xcms.doe <- function(raw_data, param, ncore = 8){
     stop("Please provide the param with 'SetPeakParam' function !")
   } else {Parameters<-param};
   
-  ## Define the range of the parameters for optimization
-  if (Parameters$Peak_method=="centWave" && Parameters$RT_method=="loess"){
-    ## Keep these Parameters
-    Parameters$value_of_prefilter <- Parameters$value_of_prefilter;
-    ## Parameters for peak picking
-    Parameters$max_peakwidth <- c(Parameters$max_peakwidth*0.5,Parameters$max_peakwidth*2);
-    Parameters$min_peakwidth <- c((Parameters$min_peakwidth)*0.5,(Parameters$min_peakwidth)*2);
-    #Parameters$ppm <- c(Parameters$ppm*0.5,Parameters$ppm*1.5)
-    Parameters$mzdiff <- c(-Parameters$mzdiff*1.2, Parameters$mzdiff*1.2);
-    Parameters$snthresh<-c(Parameters$snthresh*0.75,Parameters$snthresh*1.25);
-    ## Parameters for Alignment
-    Parameters$bw<-c(Parameters$bw*0.5,Parameters$bw*1.5);
-  } else 
-    if (Parameters$Peak_method=="centWave" && Parameters$RT_method=="obiwarp"){
-      ## Keep these Parameters
-      Parameters$value_of_prefilter <- Parameters$value_of_prefilter;
-      ## Parameters for peak picking
-      Parameters$max_peakwidth <- c(Parameters$min_peakwidth*2,Parameters$max_peakwidth*2)
-      Parameters$min_peakwidth <- c((Parameters$min_peakwidth)*0.5,(Parameters$min_peakwidth)*2)
-      #Parameters$ppm <- c(1,Parameters$ppm*2);
-      Parameters$mzdiff <- c(-Parameters$mzdiff*2, Parameters$mzdiff*2);
-      Parameters$snthresh<-c(Parameters$snthresh*0.75,Parameters$snthresh*1.25)
-      ## Parameters for Alignment
-      Parameters$bw<-c(Parameters$bw*0.5,Parameters$bw*1.5)
-    } else 
-      if (Parameters$Peak_method=="matchedFilter" && Parameters$RT_method=="loess"){
-        ## Parameters for peak picking
-        Parameters$fwhm <- c((Parameters$fwhm)*0.8,(Parameters$fwhm)*1.2)
-        Parameters$sigma <- c(Parameters$sigma*0.8,Parameters$sigma*1.2)
-        Parameters$steps <- c(Parameters$steps-1,Parameters$steps+1)
-        Parameters$mzdiff <- c(-Parameters$mzdiff*2, Parameters$mzdiff*2)
-        Parameters$snthresh<-c(1,Parameters$snthresh*10)
-        ## Parameters for Alignment
-        Parameters$bw<-c(Parameters$bw*0.5,Parameters$bw*1.5)
-      } else 
-        if (Parameters$Peak_method=="matchedFilter" && Parameters$RT_method=="obiwarp"){
-          ## Parameters for peak picking
-          Parameters$fwhm <- c((Parameters$fwhm)*0.8,(Parameters$fwhm)*1.2)
-          Parameters$sigma <- c(Parameters$sigma*0.8,Parameters$sigma*1.2)
-          Parameters$steps <- c(Parameters$steps-1,Parameters$steps+1)
-          Parameters$mzdiff <- c(-Parameters$mzdiff*2, Parameters$mzdiff*2)
-          Parameters$snthresh<-c(1,Parameters$snthresh*10)
-          ## Parameters for Alignment
-          Parameters$bw<-c(Parameters$bw*0.5,Parameters$bw*1.5)
-        } else {
-          stop("There must be something wrong about the Peak_method value in your primary params set !")
-        };
+  ### Define the range of the parameters for optimization
+  #if (Parameters$Peak_method=="centWave" && Parameters$RT_method=="loess"){
+  #  ## Keep these Parameters
+  #  Parameters$value_of_prefilter <- Parameters$value_of_prefilter;
+  #  ## Parameters for peak picking
+  #  Parameters$max_peakwidth <- c(Parameters$max_peakwidth*0.5,Parameters$max_peakwidth*2);
+  #  Parameters$min_peakwidth <- c((Parameters$min_peakwidth)*0.5,(Parameters$min_peakwidth)*2);
+  #  #Parameters$ppm <- c(Parameters$ppm*0.5,Parameters$ppm*1.5)
+  #  Parameters$mzdiff <- c(-Parameters$mzdiff*1.2, Parameters$mzdiff*1.2);
+  #  Parameters$snthresh<-c(Parameters$snthresh*0.75,Parameters$snthresh*1.25);
+  #  ## Parameters for Alignment
+  #  Parameters$bw<-c(Parameters$bw*0.5,Parameters$bw*1.5);
+  #} else 
+  #  if (Parameters$Peak_method=="centWave" && Parameters$RT_method=="obiwarp"){
+  #    ## Keep these Parameters
+  #    Parameters$value_of_prefilter <- Parameters$value_of_prefilter;
+  #    ## Parameters for peak picking
+  #    Parameters$max_peakwidth <- c(Parameters$min_peakwidth*2,Parameters$max_peakwidth*2)
+  #    Parameters$min_peakwidth <- c((Parameters$min_peakwidth)*0.5,(Parameters$min_peakwidth)*2)
+  #    #Parameters$ppm <- c(1,Parameters$ppm*2);
+  #    Parameters$mzdiff <- c(-Parameters$mzdiff*2, Parameters$mzdiff*2);
+  #    Parameters$snthresh<-c(Parameters$snthresh*0.75,Parameters$snthresh*1.25)
+  #    ## Parameters for Alignment
+  #    Parameters$bw<-c(Parameters$bw*0.5,Parameters$bw*1.5)
+  #  } else 
+  #    if (Parameters$Peak_method=="matchedFilter" && Parameters$RT_method=="loess"){
+  #      ## Parameters for peak picking
+  #      Parameters$fwhm <- c((Parameters$fwhm)*0.8,(Parameters$fwhm)*1.2)
+  #      Parameters$sigma <- c(Parameters$sigma*0.8,Parameters$sigma*1.2)
+  #      Parameters$steps <- c(Parameters$steps-1,Parameters$steps+1)
+  #      Parameters$mzdiff <- c(-Parameters$mzdiff*2, Parameters$mzdiff*2)
+  #      Parameters$snthresh<-c(1,Parameters$snthresh*10)
+  #      ## Parameters for Alignment
+  #      Parameters$bw<-c(Parameters$bw*0.5,Parameters$bw*1.5)
+  #    } else 
+  #      if (Parameters$Peak_method=="matchedFilter" && Parameters$RT_method=="obiwarp"){
+  #        ## Parameters for peak picking
+  #        Parameters$fwhm <- c((Parameters$fwhm)*0.8,(Parameters$fwhm)*1.2)
+  #        Parameters$sigma <- c(Parameters$sigma*0.8,Parameters$sigma*1.2)
+  #        Parameters$steps <- c(Parameters$steps-1,Parameters$steps+1)
+  #        Parameters$mzdiff <- c(-Parameters$mzdiff*2, Parameters$mzdiff*2)
+  #        Parameters$snthresh<-c(1,Parameters$snthresh*10)
+  #        ## Parameters for Alignment
+  #        Parameters$bw<-c(Parameters$bw*0.5,Parameters$bw*1.5)
+  #      } else {
+  #        stop("There must be something wrong about the Peak_method value in your primary params set !")
+  #      };
   
   MessageOutput("Preparing Parameters for optimization finished !", "\n", NULL);
 
