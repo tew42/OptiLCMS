@@ -1334,16 +1334,16 @@ Path2Files <- function(path){
   files <- files_tmp[formatRes];
   
   # Centroid check & filter
-  if(!isCdfFile(files)){
+  #if(!isCdfFile(files)){
     
-    Centroididx <- unname(sapply(files, CentroidCheck));
+    #Centroididx <- unname(sapply(files, CentroidCheck));
+    #
+    #if(!all(Centroididx)){
+    #  warning(paste0("Uncentroieded file: ", basename(files[!Centroididx]), "will be filtered!\n"));
+    #}
     
-    if(!all(Centroididx)){
-      warning(paste0("Uncentroieded file: ", basename(files[!Centroididx]), "will be filtered!\n"));
-    }
-    
-    files <- files[Centroididx];
-  }
+    #files <- files[Centroididx];
+  #}
 
   return(files)
 }
