@@ -1104,11 +1104,12 @@ UpdateRawfiles <- function(mSet = NULL, filesIncluded = NULL){
     filesIncluded_formated <- filesIncluded_full[extsIdx];
     
     # file centroid check
-    Centroididx <- unname(sapply(filesIncluded_formated, CentroidCheck));
-    if(!any(Centroididx)){
-      stop("No centroided spectrum found ! Please Centroid them first !")
-    }
-    filesIncluded_centroided <- filesIncluded_formated[Centroididx];
+    #Centroididx <- unname(sapply(filesIncluded_formated, CentroidCheck));
+    #if(!any(Centroididx)){
+    #  stop("No centroided spectrum found ! Please Centroid them first !")
+    #}
+    #filesIncluded_centroided <- filesIncluded_formated[Centroididx];
+    filesIncluded_centroided <- filesIncluded_formated;
     message(paste0(basename(filesIncluded_centroided), " will be included for further processing !\n"))
     
     # file size check
