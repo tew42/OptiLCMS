@@ -367,7 +367,7 @@ optimize.xcms.doe <- function(raw_data, param, ncore = 8){
 #' License: GNU GPL (>= 2)
 
 optimizxcms.doe.peakpicking <- function(object = NULL, params = params, 
-                                        BPPARAM = bpparam(), nSlaves = 4, plot = FALSE,...) {
+                                        BPPARAM = bpparam(), nSlaves = 4, plot = FALSE, max_it = 1,...) {
   
   isotopeIdentification = c("IPO");
   centWave <- is.null(params$fwhm)  ;
@@ -377,7 +377,7 @@ optimizxcms.doe.peakpicking <- function(object = NULL, params = params,
   
   object_mslevel<-PeakPicking_prep(object);
   
-  while(iterator < 20) {#Forcely stop to ensure the reasonability!
+  while(iterator < (max_it+1)) {#Forcely stop to ensure the reasonability!
     MessageOutput(paste0("Round:",iterator, "\nDoE Running Begin..."), "\n", NULL)
 
     mSet_OPT <- 
