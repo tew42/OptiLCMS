@@ -2665,7 +2665,7 @@ updateRawSpectraParam <- function (Params){
     param$noise <- as.numeric(Params[["noise"]]);
     param$verboseColumns <- as.logical(Params[["verbose.columns"]]);
     
-    param$binSize <-0.25; # density Param
+    #param$binSize <-0.25; # density Param
     
   } else if (param$Peak_method == "matchedFilter") {
     
@@ -2684,7 +2684,7 @@ updateRawSpectraParam <- function (Params){
     param$distance<- numeric(0);
     param$index<- F;
     
-    param$binSize <-0.25; # density Param
+    #param$binSize <-0.25; # density Param
     
   } else if (param$Peak_method == "Massifquant") {
     
@@ -2709,7 +2709,7 @@ updateRawSpectraParam <- function (Params){
     param$noise <- as.numeric(Params[["noise"]]);
     param$verboseColumns <- as.logical(Params[["verbose.columns"]]);
     
-    param$binSize <-0.25; # density Param
+    #param$binSize <-0.25; # density Param
     
     # Specific Parameters
     param$criticalValue <- as.numeric(Params[["criticalValue"]]);
@@ -2720,6 +2720,8 @@ updateRawSpectraParam <- function (Params){
     
   }
   # 2.1 update grouping params - density
+  
+  param$binSize <- as.numeric(Params[["binSize"]]);; # density Param
   
   param$bw<-as.numeric(Params[["bw"]]);
   param$minFraction <- as.numeric(Params[["minFraction"]]);
