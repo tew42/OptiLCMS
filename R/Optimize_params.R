@@ -433,7 +433,7 @@ optimizxcms.doe.peakpicking <- function(object = NULL, params = params,
                       GaussianSI.set.normalized,QCoE,QS)
     mSet_OPT[["response"]]<-tmp_matrix;
 	
-    write.table(tmp_matrix, file = "output.csv", append = TRUE, sep = ",")
+    write.table(tmp_matrix, file = "output.csv", append = TRUE, sep = ",", row.names = FALSE, col.names = TRUE)
     
     MessageOutput(paste0("Round ",iterator," Finished !"), "\n", NULL)
     
@@ -645,7 +645,7 @@ ExperimentsCluster_doe <-function(object, object_mslevel,params,
           diff(typ_params$to_optimize[[1]])/8)
   }
   
-  write.table(param_design, file = "output.csv", append = TRUE, sep = ",")
+  write.table(param_design, file = "output.csv", append = TRUE, sep = ",", row.names = FALSE, col.names = TRUE)
   
   param_design <- combineParams(param_design, typ_params$no_optimization)   
   
