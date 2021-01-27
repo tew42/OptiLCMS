@@ -715,7 +715,7 @@ ExperimentsCluster_doe <-function(object, object_mslevel,params,
     cl_type <- getClusterType()
     cl <- parallel::makeCluster(nSlaves,type = cl_type)
     
-    response <- matrix(0, nrow=length(design[[1]]), ncol=9)
+    response <- matrix(0, nrow=length(design[[1]]), ncol=11)
     
     parallel::clusterExport(cl, .optimize_function_list, envir = asNamespace("OptiLCMS"))
 
