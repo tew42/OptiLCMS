@@ -432,9 +432,7 @@ optimizxcms.doe.peakpicking <- function(object = NULL, params = params,
     tmp_matrix<-cbind(tmp_matrix,PPS.set,CV.set.normalized,RCS.set.normalized,GS.set.normalized,
                       GaussianSI.set.normalized,QCoE,QS)
     mSet_OPT[["response"]]<-tmp_matrix;
-	
-    write.table(tmp_matrix, file = "output.csv", append = TRUE, sep = ",", row.names = FALSE, col.names = TRUE)
-    
+   
     MessageOutput(paste0("Round ",iterator," Finished !"), "\n", NULL)
     
     mSet_OPT <-
@@ -645,7 +643,7 @@ ExperimentsCluster_doe <-function(object, object_mslevel,params,
           diff(typ_params$to_optimize[[1]])/8)
   }
   
-  write.table(param_design, file = "output.csv", append = TRUE, sep = ",", row.names = FALSE, col.names = TRUE)
+  tmp_table <- param_design;
   
   param_design <- combineParams(param_design, typ_params$no_optimization)   
   
@@ -786,6 +784,8 @@ ExperimentsCluster_doe <-function(object, object_mslevel,params,
   
   colnames(response) <- c("exp", "num_peaks", "notLLOQP", "num_C13", "PPS","CV","RCS","GS","GaussianSI")
   response <- response[order(response[,1]),]
+  
+  write.table(cbind(tmp_table,response), file = "output.csv", append = TRUE, sep = ",", row.names = FALSE, col.names = TRUE)
   
   ret <- list()
   ret$params <- typ_params
