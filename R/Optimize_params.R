@@ -972,13 +972,20 @@ SlaveCluster_doe <-function(task, Set_parameters, object, object_mslevel,
       result[9]<-tmp_GaussianSI
     };
     
-    names(result)[c(6,7,8,9)]<-c("CV","RCS","GS","GaussianSI")
+    if (class(tmp_RCS_GS)=="try-error"){
+      result[11] <- result[10] <- 0;
+    } else {
+      result[10] <- tmp_RCS_GS$GG;
+      result[11] <- tmp_RCS_GS$BG;
+    };
+    
+    names(result)[c(6,7,8,9,10,11)]<-c("CV","RCS","GS","GaussianSI","GG","BG")
     
     #result
     MessageOutput("Peak Feature Analyzing Done !\n", SuppressWeb = TRUE)
     
   } else{
-    result<-c(task,0,0,0,0,0,0,0,0)
+    result<-c(task,0,0,0,0,0,0,0,0,0,0)
   }
   return(result)
   
@@ -1192,7 +1199,7 @@ calcCV<-function(mSet){
 
 calcRCS_GSValues<-function(mSet){
   score.ret<-getRGTVValues(mSet)
-  return(list(GS=score.ret[["GS"]],RCS=score.ret[["RCS"]],GG=score.ret[["good_groups"]],score.ret[["BG=bad_groups"]]))
+  return(list(GS=score.ret[["GS"]],RCS=score.ret[["RCS"]],GG=score.ret[["good_groups"]],BG=score.ret[["bad_groups"]]))
 }
 
 #' @title Calculatre Gaussian Peak Ratio method
