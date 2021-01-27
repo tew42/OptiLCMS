@@ -782,7 +782,7 @@ ExperimentsCluster_doe <-function(object, object_mslevel,params,
     response <- t(response)
   }
   
-  colnames(response) <- c("exp", "num_peaks", "notLLOQP", "num_C13", "PPS","CV","RCS","GS","GaussianSI")
+  colnames(response) <- c("exp","num_peaks","notLLOQP","num_C13","PPS","CV","RCS","GS","GaussianSI","GG","BG")
   response <- response[order(response[,1]),]
   
   write.table(cbind(tmp_table,response), file = "output.csv", append = TRUE, sep = ",", row.names = FALSE, col.names = TRUE)
