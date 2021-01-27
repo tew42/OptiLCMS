@@ -1192,7 +1192,7 @@ calcCV<-function(mSet){
 
 calcRCS_GSValues<-function(mSet){
   score.ret<-getRGTVValues(mSet)
-  return(list(GS=score.ret[["GS"]],RCS=score.ret[["RCS"]]))
+  return(list(GS=score.ret[["GS"]],RCS=score.ret[["RCS"]],GG=score.ret[["good_groups"]],score.ret[["BG=bad_groups"]]))
 }
 
 #' @title Calculatre Gaussian Peak Ratio method
