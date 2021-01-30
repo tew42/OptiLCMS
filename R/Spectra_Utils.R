@@ -2670,7 +2670,7 @@ updateRawSpectraParam <- function (Params){
   } else if (param$Peak_method == "matchedFilter") {
     
     param$fwhm <- as.numeric(Params$fwhm);
-    param$sigma <- as.numeric(Params$sigma);
+    param$sigma <- as.numeric(Params$fwhm) / 2.3548;
     param$steps <- as.numeric(Params$steps);
     param$snthresh <- as.numeric(Params$snthresh);
     param$peakBinSize <- as.numeric(Params$peakBinSize);
